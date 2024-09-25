@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1488546183"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -gw3 -gl -l -vewnhibq &quot;-FiC:\Users\stla7\Desktop\Новая папка\LABS\LAB-2\test\lib\x86_64-win64&quot; &quot;-FuC:\Users\stla7\Desktop\Новая папка\LABS\LAB-2\test\&quot; &quot;-FUC:\Users\stla7\Desktop\Новая папка\LABS\LAB-2\test\lib\x86_64-win64\&quot; &quot;-FEC:\Users\stla7\Desktop\Новая папка\LABS\LAB-2\test\&quot; &quot;-oC:\Users\stla7\Desktop\Новая папка\LABS\LAB-2\test\project1.exe&quot; project1.lpr"/>
+  <Complete Value="False"/>
+</CONFIG>

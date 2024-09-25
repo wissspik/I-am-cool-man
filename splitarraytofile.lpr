@@ -1,0 +1,10 @@
+program ex1;
+var N_1,N_2,N_3:array of integer;
+    a,b,c:integer;
+    SIGMA:TextFile;
+begin
+  AssignFile(SIGMA,'SSS.txt');
+  ReWrite(SIGMA);
+  Write(SIGMA,' DDDD  ');
+  CloseFile(SIGMA);
+end.

@@ -1,0 +1,59 @@
+program ex1; {1 программа}
+uses Math;
+
+var
+  i, g, step_ten, x,k: integer;
+  formula, step: Double;
+  x_start, x_end: real;
+  outpite_file: TextFile;
+
+begin
+  k := 0;
+  {ФАЙЛ}
+  AssignFile(outpite_file, 'RESULT.txt'); {открываю файл}
+  Rewrite(outpite_file); {переписываю файл}
+  {2 в®зЄЁ}
+  Writeln(outpite_file, 'значения x      eps                f(x)             iteration');
+  writeln('напишите -0.7 <= x <= 0.25');
+  readln(x_start, x_end);
+
+  {’…‘’}
+  if (((x_start > 0.25) or (x_start < -0.7)) or ((x_end > 0.25) or (x_end < -0.7))) then {тест, чтобы были все точки}
+  begin
+    writeln('Напишите другой x');
+    Halt(1);
+    Readln();
+  end;
+
+  step := (x_start - x_end) / 10; {шаг с которым будет идти}
+
+  for i := 1 to 10 do
+  begin
+    step_ten := 1;
+    g := 1;
+    formula := (1 / Power(1 - x_start, 2));
+    for x := 1 to 6 do {формула для x}
+    begin
+      // Задайте ширину вывода для каждого столбца
+      while k <= 6 do
+      begin
+        formula := k * Power(x_start,k);
+        Writeln(outpite_file, x_start:6:2, '     ', '10 ** -', step_ten:2, '             ', formula:12:step_ten, '             ', g:4);
+        k := k + 1;
+        step_ten := step_ten + 1;
+        g := g + 1;
+      end;
+      step_ten := step_ten + 1;
+      inc(g);
+    end;
+    x_start := x_start - step;
+    step_ten := step_ten + 1;
+    Writeln(outpite_file, ' ');
+    Writeln(outpite_file, ' ');
+    k := 1
+  end;
+  CloseFile(outpite_file); {закрываю файл}
+end.
+// посчитать формул
+// дял каждого икс написать k k * x ** k
+
