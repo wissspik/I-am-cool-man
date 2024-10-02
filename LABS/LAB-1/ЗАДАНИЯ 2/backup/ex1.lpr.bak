@@ -1,59 +1,46 @@
-program ex1; {1 программа}
+program z3;
 uses Math;
-
 var
-  i, g, step_ten, x,k: integer;
-  formula, step: Double;
-  x_start, x_end: real;
-  outpite_file: TextFile;
-                                                                                                     A
+  HUMSTER_1, HUMSTER_2, f_values, formula,  pupper_bound: double;
+  ARRAY_RESULT: array[0..100000] of double; //
+  i, iteration, k,l: integer;
+  SIGMA_TRUE_PAPA:TextFile;
 begin
-  k := 0;
-  {ФАЙЛ}
-  AssignFile(outpite_file, 'RESULT.txt'); {открываю файл}
-  Rewrite(outpite_file); {переписываю файл}
-  {2 в®зЄЁ}
-  Writeln(outpite_file, 'значения x      eps                f(x)             iteration');
-  writeln('напишите -0.7 <= x <= 0.25');
-  readln(x_start, x_end);
+  AssignFile(SIGMA_TRUE_PAPA,'COOL_PERETS.txt');
+  ReWrite(SIGMA_TRUE_PAPA);
+  readln(HUMSTER_1);
+  readln(HUMSTER_2);
+  ARRAY_RESULT[1] := HUMSTER_2;
 
-  {’…‘’}
-  if (((x_start > 0.25) or (x_start < -0.7)) or ((x_end > 0.25) or (x_end < -0.7))) then {тест, чтобы были все точки}
+  for l := 1 to 10 do  {Начинаем с 1, так как используем l-1}
   begin
-    writeln('Напишите другой x');
-    Halt(1);
-    Readln();
-  end;
+    ARRAY_RESULT[l] := ARRAY_RESULT[l - 1] + (HUMSTER_1 - HUMSTER_2) / 10; {задаю шаг для программы}
 
-  step := (x_start - x_end) / 10; {шаг с которым будет идти}
-
-  for i := 1 to 10 do
-  begin
-    step_ten := 1;
-    g := 1;
-    formula := (1 / Power(1 - x_start, 2));
-    for x := 1 to 6 do {формула для x}
+    for i := 1 to 6 do
     begin
-      // Задайте ширину вывода для каждого столбца
-      while k <= 6 do
+      pupper_bound := 1;
+      for k := 1 to i do
       begin
-        formula := k * Power(x_start,k);
-        Writeln(outpite_file, x_start:6:2, '     ', '10 ** -', step_ten:2, '             ', formula:12:step_ten, '             ', g:4);
-        k := k + 1;
-        step_ten := step_ten + 1;
-        g := g + 1;
+        pupper_bound := pupper_bound * 0.1;
       end;
-      step_ten := step_ten + 1;
-      inc(g);
+
+      f_values := ARRAY_RESULT[l];
+      formula:= 1;
+      iteration := 2;
+      while abs(formula) >= pupper_bound do  {Используем pupper_bound вместо p}
+      begin
+        formula := formula * ARRAY_RESULT[l] * ARRAY_RESULT[l] / (iteration * (iteration + 1));    {US FORM}{!!!!!!!!!!!!!}
+        f_values := f_values - formula;
+        iteration := iteration + 1;
+      end;
+
+      Writeln(SIGMA_TRUE_PAPA,ARRAY_RESULT[l]:10:2, '    ', pupper_bound, '     ', f_values:40:40, '    ', iteration, '    ', formula);  {Вывожу итоговые вычисления в файл 'COOL_PERETS'}
+      Writeln(SIGMA_TRUE_PAPA,(' '));
     end;
-    x_start := x_start - step;
-    step_ten := step_ten + 1;
-    Writeln(outpite_file, ' ');
-    Writeln(outpite_file, ' ');
-    k := 1
   end;
-  CloseFile(outpite_file); {закрываю файл}
+  CloseFile(SIGMA_TRUE_PAPA); {Закрываю файл,чтобы программа коректно работала}
+  Readln();
 end.
-// посчитать формул
-// дял каждого икс написать k k * x ** k
+
+
 

@@ -28,6 +28,7 @@
       <Unit>
         <Filename Value="ex1.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="z3"/>
       </Unit>
     </Units>
   </ProjectOptions>
