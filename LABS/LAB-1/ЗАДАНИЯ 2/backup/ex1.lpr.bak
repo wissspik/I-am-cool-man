@@ -1,46 +1,60 @@
 program z3;
-uses Math;
-var
-  HUMSTER_1, HUMSTER_2, f_values, formula, pupper_bound: double;
-  ARRAY_RESULT: array[0..100000] of double;
-  i, iteration, k, l: integer;
-  SIGMA_TRUE_PAPA: TextFile;
+ uses WinCrt;
+ var
+   SIGMA: TextFile;
+   finali_x, first_x, value_x, steps_grade, formula: real;
+   x_array: array [0..1000] of real;
+   Flag:Boolean;
+   l, i, iteration, k,count: integer;
 begin
-  AssignFile(SIGMA_TRUE_PAPA, 'COOL_PERETS.txt');
-  ReWrite(SIGMA_TRUE_PAPA);
-  readln(HUMSTER_1);
-  readln(HUMSTER_2);
-  ARRAY_RESULT[0] := HUMSTER_2;
-
+  AssignFile(SIGMA, 'SIGMA.txt');
+  Rewrite(SIGMA);
+  writeln(SIGMA,'         x              eps            f(x)        iteration');
+  writeln('¢¢¥¤¨â¥ ­ ç «ì­®¥ §­ ç¥­¨¥ ¤«ïÿ x');
+  readln(first_x);
+  writeln('¢¢¥¤¨â¥ ª®­¥ç­¥® §­ ç¥­¨¥ ¤«ï  x');
+  readln(finali_x);
+  if (first_x > 0.25) or (first_x < -0.7) or(finali_x > 0.25) or (finali_x < -0.7) or (first_x > finali_x) then  // TEST
+  begin
+    writeln('Error, unreal diapason');
+    readln;
+    Halt(1);
+  end;
+  x_array[1] := first_x;
+  x_array[10] := finali_x;
   for l := 1 to 10 do
   begin
-    ARRAY_RESULT[l] := ARRAY_RESULT[l - 1] + (HUMSTER_1 - HUMSTER_2) / 10;
-
+    if (l >= 2) and (l < 10) then
+      x_array[l] := x_array[l - 1] + (finali_x - first_x) / 9;
+    Flag := True;
     for i := 1 to 6 do
     begin
-      pupper_bound := 1;
+      steps_grade := 1;
+      count :=  0;
       for k := 1 to i do
       begin
-        pupper_bound := pupper_bound * 0.1;
+        steps_grade := steps_grade * 0.1;
+        inc(count);
       end;
-
-      f_values := ARRAY_RESULT[l];
-      formula := f_values; {Èíèöèàëèçèðóåì íà÷àëüíîå çíà÷åíèå ôîðìóëû}
-      iteration := 1;
-
-      while abs(formula) >= pupper_bound do
+      value_x := x_array[l];
+      formula := x_array[l];
+      iteration := 2;
+      while abs(formula) >= steps_grade do
       begin
-        formula := ((i + 1) * Power(formula, i)) / i;
-        f_values := f_values - formula;
+        formula := formula * ((iteration + 1) * x_array[l]) / iteration;
+        value_x := (value_x + formula);
         iteration := iteration + 1;
       end;
-
-      Writeln(SIGMA_TRUE_PAPA, ARRAY_RESULT[l]:10:2, '    ', pupper_bound:10:5, '     ', f_values:40:10, '    ', iteration, '    ', formula:10:5);
-      Writeln(SIGMA_TRUE_PAPA);
+      if Flag then
+          begin
+            writeln(SIGMA, l , '       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:10:5, '     ', iteration);
+            Flag := False;
+          end
+      else
+          writeln(SIGMA,'       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:9:6, '     ', iteration);
     end;
   end;
-
-  CloseFile(SIGMA_TRUE_PAPA);
-  Readln();
+  CloseFile(SIGMA);
+  readln;
 end.
 

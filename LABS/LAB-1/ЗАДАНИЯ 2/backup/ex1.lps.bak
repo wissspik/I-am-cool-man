@@ -10,132 +10,138 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="z3"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="17"/>
-        <CursorPos Y="46"/>
-        <UsageCount Value="29"/>
+        <CursorPos X="11" Y="21"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="SIGMA.txt"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="7"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Text"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="42" TopLine="18"/>
+        <Caret Line="45" Column="46" TopLine="9"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="22" Column="11" TopLine="18"/>
+        <Caret Line="6" Column="11"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="3" Column="11"/>
+        <Caret Line="45" Column="56" TopLine="37"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="41" TopLine="17"/>
+        <Caret Line="5" Column="24"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="11" Column="7"/>
+        <Caret Line="45" Column="90" TopLine="37"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="8" Column="18"/>
+        <Caret Line="7" Column="19"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="9" Column="17" TopLine="3"/>
+        <Caret Line="9" Column="14"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="11" Column="19"/>
+        <Caret Line="4" Column="9"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="7" Column="15"/>
+        <Caret Line="13" Column="10"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="36" Column="56" TopLine="15"/>
+        <Caret Line="5" Column="14"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="7" Column="11"/>
+        <Caret Line="15" Column="10"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="3" Column="23"/>
+        <Caret Line="5" Column="4"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="24" Column="8"/>
+        <Caret Line="15" Column="10"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="3" Column="35"/>
+        <Caret Line="5" Column="12"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="29" Column="10"/>
+        <Caret Line="41" Column="10" TopLine="22"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="3" Column="33"/>
+        <Caret Line="5" Column="39"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="4" Column="28"/>
+        <Caret Line="41" Column="10" TopLine="25"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Column="12"/>
+        <Caret Line="5" Column="46"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="35" Column="12" TopLine="15"/>
+        <Caret Line="42" Column="10" TopLine="24"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="23" Column="65" TopLine="12"/>
+        <Caret Line="5" Column="30"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="41" Column="30"/>
+        <Caret Line="50" Column="27" TopLine="26"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="9" Column="43"/>
+        <Caret Line="7" Column="9"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="41" Column="22" TopLine="13"/>
+        <Caret Line="47" Column="17" TopLine="41"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="9" Column="46"/>
+        <Caret Line="49" Column="11" TopLine="43"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="5" Column="45"/>
+        <Caret Line="51" Column="11" TopLine="43"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="32" Column="53" TopLine="12"/>
+        <Caret Line="50" Column="27" TopLine="29"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="33" Column="15" TopLine="20"/>
+        <Caret Line="49" Column="86" TopLine="30"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="41" Column="122" TopLine="20"/>
+        <Caret Line="51" Column="74" TopLine="21"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="46" TopLine="21"/>
+        <Caret Line="5" Column="12"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
-        <Caret Line="35" Column="79" TopLine="17"/>
+        <Caret Line="20" Column="12"/>
       </Position>
     </JumpHistory>
     <RunParams>
