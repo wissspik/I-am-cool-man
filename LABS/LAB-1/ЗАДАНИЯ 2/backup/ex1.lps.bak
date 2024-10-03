@@ -10,36 +10,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="z3"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos Y="11"/>
+        <TopLine Value="17"/>
+        <CursorPos Y="46"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="9" Column="15"/>
-      </Position>
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="7" Column="17"/>
-      </Position>
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="11" Column="24"/>
-      </Position>
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="9" TopLine="3"/>
-      </Position>
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="4" Column="3"/>
-      </Position>
-      <Position>
-        <Filename Value="ex1.lpr"/>
-        <Caret Line="2" Column="37"/>
-      </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
         <Caret Line="42" TopLine="18"/>
@@ -135,6 +112,30 @@
       <Position>
         <Filename Value="ex1.lpr"/>
         <Caret Line="9" Column="46"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="5" Column="45"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="32" Column="53" TopLine="12"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="33" Column="15" TopLine="20"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="41" Column="122" TopLine="20"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="46" TopLine="21"/>
+      </Position>
+      <Position>
+        <Filename Value="ex1.lpr"/>
+        <Caret Line="35" Column="79" TopLine="17"/>
       </Position>
     </JumpHistory>
     <RunParams>
