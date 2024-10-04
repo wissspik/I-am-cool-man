@@ -1,41 +1,25 @@
-program ex1;
+program project1;
 
-type
-  TSumDoubleNumber = class
-    x, y: integer;
-    procedure Summa(number_1, number_2: integer);
-    procedure Print;
-    constructor Create(number_1, number_2: integer); // Конструктор
-  end;
+{$mode objfpc}{$H+}
 
-constructor TSumDoubleNumber.Create(number_1,number_2: integer);
-begin
-  x :=number_1;  // Присваиваем значение переменной x
-  y := number_2;  // Присваиваем значение переменной y
-end;
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  {$IFDEF HASAMIGA}
+  athreads,
+  {$ENDIF}
+  Interfaces, // this includes the LCL widgetset
+  Forms, unit1
+  { you can add units after this };
 
-procedure TSumDoubleNumber.Summa(number_1, number_2: integer);
-var
-  c: integer;
-begin
-  c := number_1 + number_2;
-  writeln(c);
-end;
-
-procedure TSumDoubleNumber.Print;
-begin
-  if x mod 2 = 0 then
-
-  writeln('X = ', x, ' Y = ', y);
-end;
-
-var
-  MyObject: TSumDoubleNumber;
+{$R *.res}
 
 begin
-  MyObject := TSumDoubleNumber.Create(55, 10); // Создаем объект с заданными значениями
-  MyObject.Print; // Вывод значений x и y
-  Readln();
+  RequireDerivedFormResource:=True;
+  Application.Scaled:=True;
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
 end.
-
 
