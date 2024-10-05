@@ -108,7 +108,7 @@ begin
     ShowMessage('Вычисления проведены успешно');
     Label4 := TLabel.Create(Self);
     Label4.Parent := Self;
-    Label4.Caption := 'Результаты вычисления занесены в файл SIGMA.TXT';
+    Label4.Caption := 'Результаты вычисления занесены в файл SIGMA123.TXT';
     Label4.Left := Label1.Left + 85;
     Label4.Top := 450;
     Label4.Font.Size := 16;    //меняю шрифт
@@ -215,52 +215,3 @@ begin
   Application.Run;
 
 end.
-
-  (*AssignFile(SIGMA, 'SIGMA.txt');
-  Rewrite(SIGMA);
-  writeln(SIGMA,'         x              eps            f(x)        iteration');
-  writeln('введите конечнео значение для  x');
-
-  x_array[1] := first_x;
-  x_array[10] := finali_x;
-  for l := 1 to 10 do
-  begin
-    if (l >= 2) and (l < 10) then
-      x_array[l] := x_array[l - 1] + (finali_x - first_x) / 9;
-    Flag := True;
-    for i := 1 to 6 do
-    begin
-      steps_grade := 1;
-      count :=  0;
-      for k := 1 to i do
-      begin
-        steps_grade := steps_grade * 0.1;
-        inc(count);
-      end;
-      value_x := x_array[l];
-      formula := x_array[l];
-      iteration := 2;
-      while abs(formula) >= steps_grade do
-      begin
-        formula := formula * ((iteration + 1) * x_array[l]) / iteration;
-        value_x := (value_x + formula);
-        iteration := iteration + 1;
-      end;
-      if Flag then
-          begin
-            writeln(SIGMA, l , '       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:10:5, '     ', iteration);
-            Flag := False;
-          end
-      else
-          writeln(SIGMA,'       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:9:6, '     ', iteration);
-    end;
-  end;
-  CloseFile(SIGMA);
-  readln;
-end.*)
-
-
-
-
-
-
