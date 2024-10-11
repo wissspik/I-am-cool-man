@@ -19,6 +19,12 @@ begin
 
   readln(first_x);
   readln(final_x);
+  if (-7>first_x) or (first_x > 5) or (-7>first_x) or (final_x > 5) then
+      begin
+       Writeln('Введите корректные значения для X');
+       Readln();
+       Halt(1);
+      end;
 
   step_number := (final_x - first_x) / 9;
   for i := 0 to 9 do
@@ -37,7 +43,6 @@ begin
       while abs(Formula_result) >= steps_EPS1[i] do
       begin
         Formula_result := Formula_result * (X_number[j] / iteration);
-        writeln('Iteration: ', iteration, ' X_number[j]: ', X_number[j]:10:6, ' Formula_result: ', Formula_result:10:6);
         values_x := values_x + Formula_result;
         iteration := iteration + 1;
       end;
@@ -50,5 +55,6 @@ begin
   end;
 
   CloseFile(SIGMA); // Close the file
+  Readln();
 end.
 

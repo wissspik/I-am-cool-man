@@ -10,8 +10,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="unit1"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <CursorPos Y="13"/>
+        <TopLine Value="10"/>
+        <CursorPos X="16" Y="26"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit>
@@ -24,47 +24,15 @@
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="7"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="8" Column="5"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="42" Column="25" TopLine="20"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="8" Column="5"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="52" Column="42" TopLine="21"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="15" Column="58"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="19" Column="53"/>
-      </Position>
+    <JumpHistory HistoryIndex="21">
       <Position>
         <Filename Value="ex1.lpr"/>
         <Caret Line="51" Column="41"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Line="51" Column="41"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\..\SSS\unit1.pas"/>
-        <Caret Column="7"/>
       </Position>
       <Position>
         <Filename Value="ex1.lpr"/>
