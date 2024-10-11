@@ -1,60 +1,54 @@
-program z3;
- uses WinCrt;
- var
-   SIGMA: TextFile;
-   finali_x, first_x, value_x, steps_grade, formula: real;
-   x_array: array [0..1000] of real;
-   Flag:Boolean;
-   l, i, iteration, k,count: integer;
+program unit1;
+
+var
+  values_x, Formula_result, first_x, final_x, step_number: real;
+  iteration, i, j, m, x: integer;
+  steps_EPS1: array[1..6] of real;
+  X_number: array[1..10] of real;
+  SIGMA: TextFile;
+
 begin
   AssignFile(SIGMA, 'SIGMA.txt');
   Rewrite(SIGMA);
-  writeln(SIGMA,'         x              eps            f(x)        iteration');
-  writeln('введите начальное значение для  x');
+
+
+  steps_EPS1[1] := 0.1;
+  for x := 2 to 6 do
+    steps_EPS1[x] := steps_EPS1[x-1] * 0.1;
+  writeln('123');
+
   readln(first_x);
-  writeln('введите конечнео значение для  x');
-  readln(finali_x);
-  if (first_x > 0.25) or (first_x < -0.7) or(finali_x > 0.25) or (finali_x < -0.7) or (first_x > finali_x) then  // TEST
+  readln(final_x);
+
+  step_number := (final_x - first_x) / 9;
+  for i := 0 to 9 do
   begin
-    writeln('Введите корректные числа для X');
-    readln;
-    Halt(1);
+    X_number[i+1] := first_x + step_number * i;
+    writeln('X_number[', i+1, '] = ', X_number[i+1]:10:6);
   end;
-  x_array[1] := first_x;
-  x_array[10] := finali_x;
-  for l := 1 to 10 do
+
+  for j := 1 to 10 do
   begin
-    if (l >= 2) and (l < 10) then
-      x_array[l] := x_array[l - 1] + (finali_x - first_x) / 9;
-    Flag := True;
     for i := 1 to 6 do
     begin
-      steps_grade := 1;
-      count :=  0;
-      for k := 1 to i do
+      iteration := 1;
+      values_x := 1;
+      Formula_result := 1;
+      while abs(Formula_result) >= steps_EPS1[i] do
       begin
-        steps_grade := steps_grade * 0.1;
-        inc(count);
-      end;
-      value_x := x_array[l];
-      formula := x_array[l];
-      iteration := 2;
-      while abs(formula) >= steps_grade do
-      begin
-        formula := formula * ((iteration + 1) * x_array[l]) / iteration;
-        value_x := (value_x + formula);
+        Formula_result := Formula_result * (X_number[j] / iteration);
+        writeln('Iteration: ', iteration, ' X_number[j]: ', X_number[j]:10:6, ' Formula_result: ', Formula_result:10:6);
+        values_x := values_x + Formula_result;
         iteration := iteration + 1;
       end;
-      if Flag then
-          begin
-            writeln(SIGMA, l , '       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:10:5, '     ', iteration);
-            Flag := False;
-          end
-      else
-          writeln(SIGMA,'       ', x_array[l]:10:5, '     10 ** -',count, '     ', value_x:9:6, '     ', iteration);
+      Write(SIGMA, X_number[j]:10:4, ' ');
+      Write(SIGMA, steps_EPS1[i]:10:6, ' ');
+      Write(SIGMA, values_x:10:6, '      ');
+      Writeln(SIGMA, iteration, ' ');
     end;
+    Writeln(SIGMA, ' ');
   end;
-  CloseFile(SIGMA);
-  readln;
+
+  CloseFile(SIGMA); // Close the file
 end.
 
