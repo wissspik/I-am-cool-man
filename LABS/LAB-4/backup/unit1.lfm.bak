@@ -1,48 +1,57 @@
 object Form1: TForm1
-  Left = 801
-  Height = 229
-  Top = 383
-  Width = 755
+  Left = 1366
+  Height = 240
+  Top = 228
+  Width = 320
   Caption = 'Form1'
-  ClientHeight = 229
-  ClientWidth = 755
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormCreate
   LCLVersion = '3.4.0.0'
-  object Edit1: TEdit
-    Left = 56
-    Height = 23
-    Top = 42
-    Width = 158
+  object START: TButton
+    Left = 224
+    Height = 40
+    Top = 120
+    Width = 71
+    Caption = 'START'
     TabOrder = 0
+    OnClick = STARTClick
   end
-  object Label1: TLabel
-    Left = 282
-    Height = 15
-    Top = 5
-    Width = 34
-    Caption = 'Label1'
-    OnClick = Label1Click
-  end
-  object Edit2: TEdit
-    Left = 408
-    Height = 23
-    Top = 42
-    Width = 158
+  object EX_IT: TButton
+    Left = 224
+    Height = 42
+    Top = 168
+    Width = 73
+    Caption = 'EX_IT'
     TabOrder = 1
+    OnClick = EX_ITClick
   end
-  object Button3: TButton
-    Left = 453
-    Height = 43
-    Top = 104
-    Width = 113
-    Caption = 'Button3'
+  object Edit1: TEdit
+    Left = 32
+    Height = 23
+    Top = 64
+    Width = 102
     TabOrder = 2
   end
-  object Button1: TButton
-    Left = 455
-    Height = 47
-    Top = 153
-    Width = 113
-    Caption = 'Button1'
+  object Edit2: TEdit
+    Left = 192
+    Height = 23
+    Top = 64
+    Width = 102
     TabOrder = 3
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 145
+    Width = 230
+    Caption = 'Результат запишется в Файл SIGMA777.txt'
+  end
+  object Label2: TLabel
+    Left = 88
+    Height = 15
+    Top = 24
+    Width = 137
+    Caption = 'Введите x от -7 <= x <= 5'
   end
 end
