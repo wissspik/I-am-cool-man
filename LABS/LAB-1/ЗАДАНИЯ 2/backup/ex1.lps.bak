@@ -10,7 +10,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="unit1"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="15" Y="24"/>
+        <TopLine Value="10"/>
+        <CursorPos X="45" Y="22"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit>

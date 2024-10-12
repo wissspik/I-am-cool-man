@@ -19,7 +19,7 @@ begin
 
   readln(first_x);
   readln(final_x);
-  if (-7>first_x) or (first_x > 5) or (-7>first_x) or (final_x > 5) then
+  if (-7>first_x) or (first_x > 5) or (-7>first_x) or (final_x > 5) or (first_x <= final_x) then
       begin
        Writeln('Введите корректные значения для X');
        Readln();

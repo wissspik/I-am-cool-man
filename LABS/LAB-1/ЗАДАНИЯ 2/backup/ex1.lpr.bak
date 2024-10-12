@@ -22,6 +22,7 @@ begin
   if (-7>first_x) or (first_x > 5) or (-7>first_x) or (final_x > 5) then
       begin
        Writeln('Введите корректные значения для X');
+       Readln();
        Halt(1);
       end;
 
