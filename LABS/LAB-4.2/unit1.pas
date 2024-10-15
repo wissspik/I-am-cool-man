@@ -5,7 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, TAGraph, TASeries;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  Menus, TAGraph, TASeries;
 
 type
 
@@ -33,6 +34,10 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
     X: TComboBox;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -55,17 +60,17 @@ procedure TForm1.Button1Click(Sender: TObject);
 var
   how_language:integer;
 begin
-    Chart1BarSeries1.Clear;
-    Label3.Caption := '';
-    Label4.Caption := '';
-    Label5.Caption := '';
-    Label6.Caption := '';
-    Label7.Caption := '';
-    Label9.Caption := '';
-    Label10.Caption := '';
-    Label11.Caption := '';
-    Label12.Caption := '';
-    Label8.Caption :='';
+  Chart1BarSeries1.Clear;
+  Label3.Caption := '';
+  Label4.Caption := '';
+  Label5.Caption := '';
+  Label6.Caption := '';
+  Label7.Caption := '';
+  Label9.Caption := '';
+  Label10.Caption := '';
+  Label11.Caption := '';
+  Label12.Caption := '';
+  Label8.Caption :='';
   // Используйте серию, которая привязана к графику через дизайнер формы
   how_language := StrToInt(X.Text);
   if how_language = 5 then
@@ -260,6 +265,8 @@ procedure TForm1.Button2Click(Sender: TObject);
 begin
    Halt(1);
 end;
+
+
 
 
 end.
