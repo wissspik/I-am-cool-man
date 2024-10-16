@@ -49,46 +49,27 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.Button2Click(Sender: TObject);    //кнопка выход
 begin
   Halt(1);  // Завершение программы
 end;
 
-procedure TForm1.Form1Create(Sender: TObject);
+procedure TForm1.Form1Create(Sender: TObject);     {процедура,чтобы убрать все на графике}
 begin
-  // Очищаем круговую диаграмму при запуске
-  Chart1PieSeries1.Clear;
-
-  // Убираем фон и оси, как было сделано ранее
   Chart1.BackColor := clNone;  // Прозрачный фон
   Chart1.Color := clNone;      // Прозрачный цвет графика
-  Chart1.BottomAxis.Grid.Visible := False;  // Убираем сетку по оси X
-  Chart1.LeftAxis.Grid.Visible := False;    // Убираем сетку по оси Y
+  Chart1.BottomAxis.Grid.Visible := False;  //   убираю оси
+  Chart1.LeftAxis.Grid.Visible := False;    //
   Chart1.BottomAxis.Visible := False;  // Ось X
   Chart1.LeftAxis.Visible := False;    // Ось Y
 
-  // Отключаем заголовок диаграммы, если он есть
-  Chart1.Title.Visible := False;
-
-  // Принудительно обновляем диаграмму
-  Chart1.Refresh;
 end;
 
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.Button1Click(Sender: TObject); {рисую круговую диаграмму}
 var
   how_language: integer;
 begin
-  // Очищаем диаграмму и лейблы перед обновлением
-  Chart1.BackColor := clNone;  // Прозрачный фон
-  Chart1.Color := clNone;      // Прозрачный цвет графика
-
-  // Убираем сетку
-  Chart1.BottomAxis.Grid.Visible := False;  // Убираем сетку по оси X
-  Chart1.LeftAxis.Grid.Visible := False;    // Убираем сетку по оси Y
-    // Отключаем отображение осей
-  Chart1.BottomAxis.Visible := False;  // Ось X
-  Chart1.LeftAxis.Visible := False;    // Ось Y
 
 
   Chart1PieSeries1.Clear;
@@ -97,11 +78,17 @@ begin
   Label5.Caption := '';
   Label6.Caption := '';
   Label7.Caption := '';
-  Label8.Caption := '';
+  Label9.Caption := '';
+  Label10.Caption := '';
+  Label11.Caption := '';
+  Label12.Caption := '';
+  Label13.Caption := '';
+  Label14.Caption := '';
+
 
   // Преобразуем выбранное значение из ComboBox в целое число
   how_language := StrToInt(ComboBox1.Text);
-
+                             //делаю для каждого количества языка условия if
   if how_language = 5 then
   begin
   Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}

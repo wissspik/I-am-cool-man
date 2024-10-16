@@ -4,8 +4,8 @@ object Form1: TForm1
   Top = 231
   Width = 802
   Caption = 'Form1'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 398
+  ClientWidth = 802
   OnActivate = Form1Create
   LCLVersion = '3.4.0.0'
   object Chart1: TChart
@@ -15,7 +15,19 @@ object Form1: TForm1
     Height = 224
     Top = 72
     Width = 375
-    AxisList = <>
+    AxisList = <    
+      item
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelBrush.Style = bsClear
+      end>
     Title.Text.Strings = (
       'TAChart'
     )
@@ -75,7 +87,7 @@ object Form1: TForm1
     Left = 0
     Height = 1
     Top = 0
-    Width = 0
+    Width = 802
     Align = alTop
   end
   object Label4: TLabel
