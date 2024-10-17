@@ -5,10 +5,15 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,WinCrt;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Menus,WinCrt;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
+    Memo1: TMemo;
+    PopupMenu1: TPopupMenu;
   private
     Button1: TButton;
     Button2: TButton;

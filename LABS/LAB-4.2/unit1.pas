@@ -56,11 +56,11 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.Button1Click(Sender: TObject);    // строю char
 var
   how_language:integer;
 begin
-  Chart1BarSeries1.Clear;
+  Chart1BarSeries1.Clear;           // обновление лейблов,а также char
   Label3.Caption := '';
   Label4.Caption := '';
   Label5.Caption := '';
@@ -71,8 +71,8 @@ begin
   Label11.Caption := '';
   Label12.Caption := '';
   Label8.Caption :='';
-  // Используйте серию, которая привязана к графику через дизайнер формы
-  how_language := StrToInt(X.Text);
+
+  how_language := StrToInt(X.Text);   //раскидываю все соучаи на 6 ситуаций,где заполняю по-разному всё
   if how_language = 5 then
   begin
   Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
@@ -261,7 +261,7 @@ begin
 
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.Button2Click(Sender: TObject);    // button "Exit"
 begin
    Halt(1);
 end;
