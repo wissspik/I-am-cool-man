@@ -220,19 +220,6 @@ begin
   head := MergeSortedLists(front, back);
 end;
 
-procedure FreeList(var head1: PNode);
-var
-  current, temp: PNode;
-begin
-  current := head1;
-  while current <> nil do
-  begin
-    temp := current^.next;
-    Dispose(current);
-    current := temp;
-  end;
-  head1 := nil;
-end;
 
 procedure SortedArray(var head1: PNode; value: integer);
 var
@@ -311,7 +298,7 @@ begin
   len_array := StrToInt(Edit1.Text);
   for x := 1 to len_array do
   begin
-    number := Random(1999) - 1000;  // Генерация случайного числа
+    number := Random(1999) - 999;  // Генерация случайного числа
     Append(head1, number);  // Добавляем число в список
   end;
   current := head1;

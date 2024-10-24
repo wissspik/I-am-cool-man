@@ -55,7 +55,7 @@ var
   Form1: TForm1;
 
 implementation
-
+                                                   // открытие файла посмотреть
 {$R *.lfm}
 
 { TForm1 }
@@ -298,7 +298,7 @@ begin
   len_array := StrToInt(Edit1.Text);
   for x := 1 to len_array do
   begin
-    number := Random(1999) - 1000;  // Генерация случайного числа
+    number := Random(1999) - 999;  // Генерация случайного числа
     Append(head1, number);  // Добавляем число в список
   end;
   current := head1;
