@@ -5,35 +5,23 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Buttons, TAGraph, TASeries, Math; // Подключаем необходимые модули
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
 
 type
+
   { TForm1 }
 
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
-    Chart1: TChart;
-    Chart1PieSeries1: TPieSeries;
-    Chart2: TChart;
     ComboBox1: TComboBox;
+    Edit1: TEdit;
+    Image1: TImage;
+    Image2: TImage;
     Label1: TLabel;
-    Label14: TLabel;
     Label2: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
+    Label3: TLabel;
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Form1Create(Sender: TObject);
   private
 
   public
@@ -45,235 +33,87 @@ var
 
 implementation
 
+const
+  ymin = 0.0;
+var
+  LangColor: array[1..10] of TColor = (clGreen, clBlue, clFuchsia, clRed, clNavy, clMaroon, clTeal, clOlive, clPurple, clBlack);
+  Languages: array[1..10] of string = ('C', 'Java', 'Python', 'C++', 'C#', 'Visual Studio', 'JavaScript', 'PHP', 'R', 'SQL');
+  Rating: array[1..10] of real = (16.95, 12.56, 11.28, 6.94, 4.16, 3.97, 2.14, 2.09, 1.99, 1.57);
+var
+  jBeg, jEnd: integer;
+  ymax: real;
+
 {$R *.lfm}
 
+function jy(y: real): integer;
+begin
+   Result := round(((y - ymin) * (jEnd - jBeg)) / (ymin - ymax)) + jEnd;
+end;
+
+procedure Draw;
+var
+  kollang, step, Border, xl, xr,yl, i: integer;
+  sum: real;
+begin
+   Border := 10;
+   jBeg := Border;
+   jEnd := Form1.Image1.Height - Border;
+
+   with Form1.Image1.Canvas do
+   begin
+     Brush.Color := clForm;
+     FillRect(0, 0, Form1.Image1.Width,
+                    Form1.Image1.Height);
+     kollang := StrToInt(Form1.ComboBox1.Text);
+     sum := 0;
+
+     for i := 1 to kollang do
+       sum := sum + Rating[i];
+
+     ymax := 100 - sum;
+     step := round((Form1.Image1.Width - 3 * Border) / (kollang + 1));
+     xl := 3 * Border;
+
+     for i := 1 to kollang do
+     begin
+          xr := xl + step;
+          Brush.Color := LangColor[i];
+          FillRect(Xl, jy(ymin), xr, jy(Rating[i]));
+          xl := xl + step;
+     end;
+
+     xr := xl + step;
+     Brush.Color := clGray;
+     FillRect(xl, jy(ymin), xr, jy(100 - sum));
+     Brush.Color := clForm;
+     Line(2 * Border, jy(0), 2 * Border, jy(ymax));
+     TextOut(0, jy(ymax / 2), FloatToStr(round(ymax / 2)) + '%');
+     TextOut(0, jy(0) - 4, '0%');
+     TextOut(0, jy(ymax), FloatToStr(round(ymax)) + '%');
+     with Form1.Image2.Canvas do begin
+       Brush.Color := clForm;
+       FillRect(0,0,Form1.Image2.Width,
+                    Form1.Image2.Height);
+       step := round(Form1.Image2.Height / (kollang+1));
+       xl := Border; yl := Border div 2;
+       Font.Style:=[fsBold];
+       for i := 1 to kollang do begin
+         Font.Color := LangColor[i];
+         TextOut(xl,yl,Languages[i]);
+         yl := yl + step;
+       end;
+       Font.Color := clGray; Font.Style:=[fsBold];
+       TextOut(xl,yl,'Другие');
+
+
+   end;
+end;
+end;
 { TForm1 }
 
-procedure TForm1.Button2Click(Sender: TObject);    //кнопка выход
+procedure TForm1.Button1Click(Sender: TObject);
 begin
-  Halt(1);  // Завершение программы
-end;
-
-procedure TForm1.Form1Create(Sender: TObject);     {процедура,чтобы убрать все на графике}
-begin
-  Chart1.BackColor := clNone;  // Прозрачный фон
-  Chart1.Color := clNone;      // Прозрачный цвет графика
-  Chart1.BottomAxis.Grid.Visible := False;  //   убираю оси
-  Chart1.LeftAxis.Grid.Visible := False;    //
-  Chart1.BottomAxis.Visible := False;  // Ось X
-  Chart1.LeftAxis.Visible := False;    // Ось Y
-
-end;
-
-
-procedure TForm1.Button1Click(Sender: TObject); {рисую круговую диаграмму}
-var
-  how_language: integer;
-begin
-
-
-  Chart1PieSeries1.Clear;
-  Label14.Caption := '';
-  Label4.Caption := '';
-  Label5.Caption := '';
-  Label6.Caption := '';
-  Label7.Caption := '';
-  Label9.Caption := '';
-  Label10.Caption := '';
-  Label11.Caption := '';
-  Label12.Caption := '';
-  Label13.Caption := '';
-  Label14.Caption := '';
-
-
-  // Преобразуем выбранное значение из ComboBox в целое число
-  how_language := StrToInt(ComboBox1.Text);
-                             //делаю для каждого количества языка условия if
-  if how_language = 5 then
-  begin
-  Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1PieSeries1.Add(41.99, 'Ather Language', clGray);  {6}
-
-  Label14.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-
-  Label14.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label8.Caption := 'Other language';
-  end;
-
-  if how_language = 6 then
-  begin
-  Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1PieSeries1.Add(3.54, 'JavaScipt', clBlack);   {5}
-  Chart1PieSeries1.Add(38.45, 'ther Language', clGray);  {6}
-
-  Label14.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label7.Font.Color := clBlack;
-  Label8.Font.Color := clGray;
-
-  Label14.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label8.Caption := 'Other language';
-  end;
-
-  if how_language = 7 then
-  begin
-  Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1PieSeries1.Add(3.54, 'JavaScipt', clBlack);
-  Chart1PieSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-  Chart1PieSeries1.Add(36.1, 'Other Language', clGray);  {6}
-
-  Label14.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-  Label10.Font.Color := clTeal;
-
-  Label14.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label10.Caption := 'Visual Basic';
-  Label8.Caption :='Other language';
-  end;
-
-  if how_language = 8 then
-  begin
-  Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1PieSeries1.Add(3.54, 'JavaScipt', clBlack);
-  Chart1PieSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-  Chart1PieSeries1.Add(2.02, 'GO', clLime);{5}
-  Chart1PieSeries1.Add(34.08, 'Other Language', clGray);  {6}
-
-  Label14.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-  Label10.Font.Color := clTeal;
-  Label11.Font.Color := clLime;
-
-
-  Label14.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label10.Caption := 'Visual Basic';
-  Label11.Caption := 'GO';
-  Label8.Caption :='Other language';
-  end;
-
-  if how_language = 9 then
-  begin
-    Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-    Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-    Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-    Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-    Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-    Chart1PieSeries1.Add(3.54, 'JavaScipt', clBlack);
-    Chart1PieSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-    Chart1PieSeries1.Add(2.02, 'GO', clLime);{5}
-    Chart1PieSeries1.Add(1.8, 'Fortran', clAqua);{5}
-    Chart1PieSeries1.Add(32.28, 'Other Language', clGray);  {6}
-
-    Label14.Font.Color := clRed;
-    Label4.Font.Color := clBlue;
-    Label5.Font.Color := clGreen;
-    Label6.Font.Color := clPurple;
-    Label7.Font.Color := clOlive;
-    Label8.Font.Color := clGray;
-    Label12.Font.Color := clAqua;
-    Label11.Font.Color := clLime;
-
-
-    Label14.Caption := 'Python';
-    Label4.Caption := 'C++';
-    Label5.Caption := 'Java';
-    Label6.Caption := 'C';
-    Label7.Caption := 'C#';
-    Label9.Caption := 'JavaScipt';
-    Label10.Caption := 'Visual Basic';
-    Label11.Caption := 'GO';
-    Label12.Caption := 'Fortran';
-    Label8.Caption :='Other language';
-  end;
-
-  if how_language = 10 then
-  begin
-    Chart1PieSeries1.Add(21.90, 'Python', clRed); {1}
-    Chart1PieSeries1.Add(11.60, 'C++', clBlue);   {2}
-    Chart1PieSeries1.Add(10.51, 'Java', clGreen); {3}
-    Chart1PieSeries1.Add(8.38, 'C', clPurple);     {4}
-    Chart1PieSeries1.Add(5.62, 'C#', clOlive);   {5}
-    Chart1PieSeries1.Add(3.54, 'JavaScipt', clBlack);
-    Chart1PieSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-    Chart1PieSeries1.Add(2.02, 'GO', clLime);{5}
-    Chart1PieSeries1.Add(1.8, 'Fortran', clAqua);{5}
-    Chart1PieSeries1.Add(1.68, 'Fortran', clFuchsia);{5}
-    Chart1PieSeries1.Add(30.06, 'Other Language', clGray);  {6}
-
-    Label14.Font.Color := clRed;
-    Label4.Font.Color := clBlue;
-    Label5.Font.Color := clGreen;
-    Label6.Font.Color := clPurple;
-    Label7.Font.Color := clOlive;
-    Label8.Font.Color := clGray;
-    Label12.Font.Color := clAqua;
-    Label13.Font.Color := clFuchsia;
-    Label11.Font.Color := clLime;
-
-
-    Label14.Caption := 'Python';
-    Label4.Caption := 'C++';
-    Label5.Caption := 'Java';
-    Label6.Caption := 'C';
-    Label7.Caption := 'C#';
-    Label9.Caption := 'JavaScipt';
-    Label10.Caption := 'Visual Basic';
-    Label11.Caption := 'GO';
-    Label12.Caption := 'Fortran';
-    Label13.Caption := 'Delphi/Object Pascal';
-    Label8.Caption :='Other language';
-    end;
+  Draw
 end;
 
 

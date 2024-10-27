@@ -19,7 +19,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Scaled := True;
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1); // Измените на правильное имя класса
+  Application.CreateForm(TForm1, ColDiagrForm); // Измените на правильное имя класса
   Application.Run;
 end.
 
