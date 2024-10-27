@@ -5,8 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Menus, TAGraph, TASeries;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
 
 type
 
@@ -15,36 +14,17 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
-    Chart1: TChart;
-    BarSeries1: TBarSeries;
-    Chart1BarSeries1: TBarSeries;
-    Chart1BarSeries2: TBarSeries;
-    Chart1BarSeries3: TBarSeries;
-    Chart1BarSeries4: TBarSeries;
+    ComboBox1: TComboBox;
+    Edit1: TEdit;
+    Image1: TImage;
+    LegendImage: TImage;
     Label1: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    X: TComboBox;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
-
   public
-
   end;
 
 var
@@ -52,222 +32,101 @@ var
 
 implementation
 
+var
+  LangColor: array[1..10] of TColor = (clGreen, clBlue, clFuchsia, clRed, clNavy, clMaroon, clTeal, clOlive, clPurple, clBlack);
+  Languages: array[1..10] of string = ('C', 'Java', 'Python', 'C++', 'C#', 'Visual Studio', 'JavaScript', 'PHP', 'R', 'SQL');
+  Rating: array[1..10] of real = (16.95, 12.56, 11.28, 6.94, 4.16, 3.97, 2.14, 2.09, 1.99, 1.57);
+  iBeg, jBeg, iEnd, jEnd: integer;
+
 {$R *.lfm}
+
+procedure Draw;
+var
+  kollang, Border, xt, yt, step, rad, irad, jrad, i: integer;
+  x1, xr, start: real;
+begin
+  Border := 20;
+  iBeg := Border;
+  jBeg := Border;
+
+
+  with Form1.Image1.Canvas do
+  begin
+    Brush.Color := clWhite;
+    FillRect(0, 0, Form1.Image1.Width, Form1.Image1.Height);
+
+    kollang := StrToInt(Form1.ComboBox1.Text);
+
+
+    if (Form1.Image1.Width - 2 * iBeg) > (Form1.Image1.Height - 2 * jBeg) then
+      rad := Form1.Image1.Height - 2 * jBeg
+    else
+      rad := Form1.Image1.Width - 2 * iBeg;
+
+    rad := rad div 2;
+    iEnd := iBeg + 2 * rad;
+    jEnd := jBeg + 2 * rad;
+    irad := iBeg + rad;
+    jrad := jBeg + rad;
+
+    start := pi / 2;
+    x1 := start;
+
+
+    for i := 1 to kollang do
+    begin
+      xr := x1 - 2 * pi * Rating[i] / 100;
+      Brush.Color := LangColor[i];
+      Pie(iBeg, jBeg, iEnd, jEnd,
+          irad + round(rad * cos(xr)), jrad - round(rad * sin(xr)),
+          irad + round(rad * cos(x1)), jrad - round(rad * sin(x1)));  y
+      x1 := xr;
+    end;
+
+
+    Brush.Color := clGray;
+    xr := start;
+    Pie(iBeg, jBeg, iEnd, jEnd,
+        irad + round(rad * cos(xr)), jrad - round(rad * sin(xr)),
+        irad + round(rad * cos(x1)), jrad - round(rad * sin(x1)));
+  end;
+
+
+
+  with Form1.LegendImage.Canvas do
+  begin
+    Brush.Color := clWhite;
+    FillRect(0, 0, Form1.LegendImage.Width, Form1.LegendImage.Height);
+
+    step := round(Form1.LegendImage.Height / (kollang + 1));
+    xt := Border;
+    yt := Border div 2;
+
+    Font.Style := [fsBold];
+    for i := 1 to kollang do
+    begin
+      Font.Color := LangColor[i];
+      TextOut(xt, yt, Languages[i]);
+      yt := yt + step;
+    end;
+
+    Font.Color := clGray;
+    TextOut(xt, yt, 'Другие');
+  end;
+end;
+
 
 { TForm1 }
 
-procedure TForm1.Button1Click(Sender: TObject);    // строю char
-var
-  how_language:integer;
+procedure TForm1.Button2Click(Sender: TObject);
 begin
-  Chart1BarSeries1.Clear;           // обновление лейблов,а также char
-  Label3.Caption := '';
-  Label4.Caption := '';
-  Label5.Caption := '';
-  Label6.Caption := '';
-  Label7.Caption := '';
-  Label9.Caption := '';
-  Label10.Caption := '';
-  Label11.Caption := '';
-  Label12.Caption := '';
-  Label8.Caption :='';
-
-  how_language := StrToInt(X.Text);   //раскидываю все соучаи на 6 ситуаций,где заполняю по-разному всё
-  if how_language = 5 then
-  begin
-  Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1BarSeries1.Add(41.99, 'Ather Language', clGray);  {6}
-
-  Label3.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-
-  Label3.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label8.Caption := 'Other language';
-  end;
-
-  if how_language = 6 then
-  begin
-  Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1BarSeries1.Add(3.54, 'JavaScipt', clBlack);   {5}
-  Chart1BarSeries1.Add(38.45, 'ther Language', clGray);  {6}
-
-  Label3.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label7.Font.Color := clBlack;
-  Label8.Font.Color := clGray;
-
-  Label3.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label8.Caption := 'Other language';
-  end;
-
-  if how_language = 7 then
-  begin
-  Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1BarSeries1.Add(3.54, 'JavaScipt', clBlack);
-  Chart1BarSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-  Chart1BarSeries1.Add(36.1, 'Other Language', clGray);  {6}
-
-  Label3.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-  Label10.Font.Color := clTeal;
-
-  Label3.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label10.Caption := 'Visual Basic';
-  Label8.Caption :='Other language';
-  end;
-
-  if how_language = 8 then
-  begin
-  Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-  Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-  Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-  Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-  Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-  Chart1BarSeries1.Add(3.54, 'JavaScipt', clBlack);
-  Chart1BarSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-  Chart1BarSeries1.Add(2.02, 'GO', clLime);{5}
-  Chart1BarSeries1.Add(34.08, 'Other Language', clGray);  {6}
-
-  Label3.Font.Color := clRed;
-  Label4.Font.Color := clBlue;
-  Label5.Font.Color := clGreen;
-  Label6.Font.Color := clPurple;
-  Label7.Font.Color := clOlive;
-  Label8.Font.Color := clGray;
-  Label10.Font.Color := clTeal;
-  Label11.Font.Color := clLime;
-
-
-  Label3.Caption := 'Python';
-  Label4.Caption := 'C++';
-  Label5.Caption := 'Java';
-  Label6.Caption := 'C';
-  Label7.Caption := 'C#';
-  Label9.Caption := 'JavaScipt';
-  Label10.Caption := 'Visual Basic';
-  Label11.Caption := 'GO';
-  Label8.Caption :='Other language';
-  end;
-
-  if how_language = 9 then
-  begin
-    Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-    Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-    Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-    Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-    Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-    Chart1BarSeries1.Add(3.54, 'JavaScipt', clBlack);
-    Chart1BarSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-    Chart1BarSeries1.Add(2.02, 'GO', clLime);{5}
-    Chart1BarSeries1.Add(1.8, 'Fortran', clAqua);{5}
-    Chart1BarSeries1.Add(32.28, 'Other Language', clGray);  {6}
-
-    Label3.Font.Color := clRed;
-    Label4.Font.Color := clBlue;
-    Label5.Font.Color := clGreen;
-    Label6.Font.Color := clPurple;
-    Label7.Font.Color := clOlive;
-    Label8.Font.Color := clGray;
-    Label12.Font.Color := clAqua;
-    Label11.Font.Color := clLime;
-
-
-    Label3.Caption := 'Python';
-    Label4.Caption := 'C++';
-    Label5.Caption := 'Java';
-    Label6.Caption := 'C';
-    Label7.Caption := 'C#';
-    Label9.Caption := 'JavaScipt';
-    Label10.Caption := 'Visual Basic';
-    Label11.Caption := 'GO';
-    Label12.Caption := 'Fortran';
-    Label8.Caption :='Other language';
-  end;
-
-  if how_language = 10 then
-  begin
-  Chart1BarSeries1.Add(21.90, 'Python', clRed); {1}
-    Chart1BarSeries1.Add(11.60, 'C++', clBlue);   {2}
-    Chart1BarSeries1.Add(10.51, 'Java', clGreen); {3}
-    Chart1BarSeries1.Add(8.38, 'C', clPurple);     {4}
-    Chart1BarSeries1.Add(5.62, 'C#', clOlive);   {5}
-    Chart1BarSeries1.Add(3.54, 'JavaScipt', clBlack);
-    Chart1BarSeries1.Add(2.35, 'Visual Basic', clTeal);{5}
-    Chart1BarSeries1.Add(2.02, 'GO', clLime);{5}
-    Chart1BarSeries1.Add(1.8, 'Fortran', clAqua);{5}
-    Chart1BarSeries1.Add(1.68, 'Fortran', clFuchsia);{5}
-    Chart1BarSeries1.Add(30.06, 'Other Language', clGray);  {6}
-
-    Label3.Font.Color := clRed;
-    Label4.Font.Color := clBlue;
-    Label5.Font.Color := clGreen;
-    Label6.Font.Color := clPurple;
-    Label7.Font.Color := clOlive;
-    Label8.Font.Color := clGray;
-    Label12.Font.Color := clAqua;
-    Label13.Font.Color := clFuchsia;
-    Label11.Font.Color := clLime;
-
-
-    Label3.Caption := 'Python';
-    Label4.Caption := 'C++';
-    Label5.Caption := 'Java';
-    Label6.Caption := 'C';
-    Label7.Caption := 'C#';
-    Label9.Caption := 'JavaScipt';
-    Label10.Caption := 'Visual Basic';
-    Label11.Caption := 'GO';
-    Label12.Caption := 'Fortran';
-    Label13.Caption := 'Delphi/Object Pascal';
-    Label8.Caption :='Other language';
-  end;
-
+  Draw;
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);    // button "Exit"
+procedure TForm1.Button1Click(Sender: TObject);
 begin
-   Halt(1);
+  Close;
 end;
-
-
-
 
 end.
 
