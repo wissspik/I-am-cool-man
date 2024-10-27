@@ -10,9 +10,10 @@ uses
 type
   // Указатели на узлы для трех разных списков
   PNode = ^TNode;  // Указатель на узел
+
   TNode = record
-    data: Integer;  // Случайное число
-    next: PNode;    // Указатель на следующий узел
+    Data: integer;  // Случайное число
+    Next: PNode;    // Указатель на следующий узел
   end;
 
 
@@ -41,11 +42,12 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
-    procedure FileSaveButtonClick(head1:PNode;Sender : TObject);
+    procedure FileSaveButtonClick(head1: PNode; Sender: TObject);
     procedure FileOpenButtonClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     head1: PNode;
-    result: PNode;
+    Result: PNode;
 
   public
 
@@ -55,10 +57,50 @@ var
   Form1: TForm1;
 
 implementation
-                                                   // открытие файла посмотреть
+
+// открытие файла посмотреть
 {$R *.lfm}
 
 { TForm1 }
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  OpenDialog1.Filter := 'Text files (*.txt)|*.txt|All files (*.*)|*.*';
+end;
+
+procedure TForm1.FileOpenButtonClick(Sender: TObject);
+var
+  inf: TextFile;
+  line: string;
+begin
+  Memo1.Lines.Clear; // Очищаем Memo перед загрузкой данных
+  if OpenDialog1.Execute then  // Открывает диалоговое окно выбора файла
+  begin
+    if FileExists(OpenDialog1.FileName) then
+    begin
+      ShowMessage('Файл найден, открываем: ' + OpenDialog1.FileName);
+      AssignFile(inf, OpenDialog1.FileName);
+      Reset(inf);
+      try
+        while not Eof(inf) do // Читаем файл до конца
+        begin
+          ReadLn(inf, line); // Читаем строку из файла
+          Memo1.Lines.Add(line); // Добавляем считанную строку в Memo
+        end;
+      finally
+        CloseFile(inf);
+      end;
+    end
+    else
+      ShowMessage('Файл не найден');
+  end
+  else
+    ShowMessage('Окно выбора файла не было открыто');
+end;
+
+
+
+
+
 procedure FreeList(var head1: PNode);
 var
   current, temp: PNode;
@@ -66,89 +108,54 @@ begin
   current := head1;
   while current <> nil do
   begin
-    temp := current^.next;
+    temp := current^.Next;
     Dispose(current);
     current := temp;
   end;
   head1 := nil;
 end;
 
-procedure TForm1.FileOpenButtonClick(Sender: TObject);
+
+
+
+procedure TForm1.FileSaveButtonClick(head1: PNode; Sender: TObject);
 var
-  inf: TextFile;
-  num: Integer;
-begin
-  Memo1.Lines.Clear;
-  Memo1.Lines.Add('Укажите файл');
-
-  if OpenDialog1.Execute then
-  begin
-    if FileExists(OpenDialog1.FileName) then
-    begin
-      Memo1.Lines.Add('Открыть файл: ' + OpenDialog1.FileName);
-
-      // Открытие файла для чтения
-      AssignFile(inf, OpenDialog1.FileName);
-      Reset(inf);
-
-      // Чтение содержимого файла
-      while not Eof(inf) do
-      begin
-        Read(inf, num);
-        Memo1.Lines.Add(IntToStr(num));  // Вывод прочитанного числа
-      end;
-
-      // Закрытие файла
-      CloseFile(inf);
-    end
-    else
-      Memo1.Lines.Add('Файл ' + OpenDialog1.FileName + ' не найден');
-  end;
-end;
-
-
-
-
-
-
-
-
-
-procedure  TForm1.FileSaveButtonClick(head1:PNode;Sender : TObject);
-var outf: TextFile;
-    current:PNode;
+  outf: TextFile;
+  current: PNode;
 begin
   Form1.Memo1.Lines.Clear;
   Form1.Memo1.Lines.Add('Укажите файл для сохранения списка');
   if Form1.SaveDialog1.Execute then
   begin
-    AssignFile(outf,Form1.SaveDialog1.FileName);
+    AssignFile(outf, Form1.SaveDialog1.FileName);
     Rewrite(outf);
     current := head1;
     while current <> nil do
-     begin
-       Write(outf,current^.data,' ');
-       current := current^.next;
-     end;
+    begin
+      Writeln(outf, current^.Data);
+      current := current^.Next;
+    end;
     CloseFile(outf);
     Form1.Memo1.Lines.Clear;
-    Form1.Memo1.Lines.add('Список записан в файл' + Form1.SaveDialog1.FileName);
-    end;
-    FreeList(head1);
+    Form1.Memo1.Lines.add('Список записан в файл' +
+      Form1.SaveDialog1.FileName);
+  end;
+  FreeList(head1);
 end;
 
-procedure AddFile(head1:PNode);
-var Txt:TextFile;
-    current:PNode;
+procedure AddFile(head1: PNode);
+var
+  Txt: TextFile;
+  current: PNode;
 begin
-  AssignFile(Txt,'HelloWorld.txt');
+  AssignFile(Txt, 'HelloWorld.txt');
   Rewrite(Txt);
   current := head1;
   while current <> nil do
-     begin
-       Write(Txt,current^.data,' ');
-       current := current^.next;
-     end;
+  begin
+    Write(Txt, current^.Data, ' ');
+    current := current^.Next;
+  end;
   CloseFile(Txt);
 end;
 
@@ -157,7 +164,7 @@ procedure SplitList(head: PNode; var front, back: PNode);
 var
   slow, fast: PNode;
 begin
-  if (head = nil) or (head^.next = nil) then
+  if (head = nil) or (head^.Next = nil) then
   begin
     front := head;
     back := nil;
@@ -165,20 +172,20 @@ begin
   else
   begin
     slow := head;
-    fast := head^.next;
+    fast := head^.Next;
     // Быстрое и медленное продвижение для нахождения середины списка
     while fast <> nil do
     begin
-      fast := fast^.next;
+      fast := fast^.Next;
       if fast <> nil then
       begin
-        slow := slow^.next;
-        fast := fast^.next;
+        slow := slow^.Next;
+        fast := fast^.Next;
       end;
     end;
     front := head;
-    back := slow^.next;
-    slow^.next := nil; // разделяем список
+    back := slow^.Next;
+    slow^.Next := nil; // разделяем список
   end;
 end;
 
@@ -189,15 +196,15 @@ begin
   if a = nil then Exit(b);
   if b = nil then Exit(a);
 
-  if a^.data <= b^.data then
+  if a^.Data <= b^.Data then
   begin
     res := a;
-    res^.next := MergeSortedLists(a^.next, b);
+    res^.Next := MergeSortedLists(a^.Next, b);
   end
   else
   begin
     res := b;
-    res^.next := MergeSortedLists(a, b^.next);
+    res^.Next := MergeSortedLists(a, b^.Next);
   end;
   MergeSortedLists := res;  // Изменено на res
 end;
@@ -207,7 +214,7 @@ procedure MergeSort(var head: PNode);
 var
   front, back: PNode;
 begin
-  if (head = nil) or (head^.next = nil) then Exit; // База рекурсии
+  if (head = nil) or (head^.Next = nil) then Exit; // База рекурсии
 
   // Разделяем список на две половины
   SplitList(head, front, back);
@@ -221,17 +228,17 @@ begin
 end;
 
 
-procedure SortedArray(var head1: PNode; value: integer);
+procedure SortedArray(var head1: PNode; Value: integer);
 var
   newNode, current, prev: PNode;
 begin
   New(newNode);
-  newNode^.data := value;
-  newNode^.next := nil;
+  newNode^.Data := Value;
+  newNode^.Next := nil;
 
-  if (head1 = nil) or (value < head1^.data) then
+  if (head1 = nil) or (Value < head1^.Data) then
   begin
-    newNode^.next := head1;
+    newNode^.Next := head1;
     head1 := newNode;
   end
   else
@@ -239,37 +246,37 @@ begin
     prev := nil;
     current := head1;
 
-    while (current <> nil) and (current^.data < value) do
+    while (current <> nil) and (current^.Data < Value) do
     begin
       prev := current;
-      current := current^.next;
+      current := current^.Next;
     end;
 
     if prev <> nil then
-      prev^.next := newNode;
+      prev^.Next := newNode;
 
-    newNode^.next := current;
+    newNode^.Next := current;
   end;
 end;
 
 
 
-procedure Append(var head1: PNode; value: Integer);
+procedure Append(var head1: PNode; Value: integer);
 var
   newNode, current: PNode;
 begin
   New(newNode); // создаем новый узел
-  newNode^.data := value;
-  newNode^.next := nil;
+  newNode^.Data := Value;
+  newNode^.Next := nil;
 
   if head1 = nil then
     head1 := newNode
   else
   begin
     current := head1;
-    while current^.next <> nil do
-      current := current^.next;
-    current^.next := newNode;
+    while current^.Next <> nil do
+      current := current^.Next;
+    current^.Next := newNode;
   end;
 end;
 
@@ -281,20 +288,22 @@ begin
   current := head1;
   while current <> nil do
   begin
-    ListBox.Items.Add(IntToStr(current^.data));  // Преобразуем число в строку
-    current := current^.next;  // Переходим к следующему узлу
+    ListBox.Items.Add(IntToStr(current^.Data));
+    // Преобразуем число в строку
+    current := current^.Next;  // Переходим к следующему узлу
   end;
 end;
 
 
 procedure TForm1.Button3Click(Sender: TObject);
 var
-  len_array, x, number,i: Integer;
-  current:PNode;
+  len_array, x, number, i: integer;
+  current: PNode;
 begin
   Randomize;
   i := 1;
-  FreeList(head1); // Освобождаем память перед заполнением нового списка
+  FreeList(head1);
+  // Освобождаем память перед заполнением нового списка
   len_array := StrToInt(Edit1.Text);
   for x := 1 to len_array do
   begin
@@ -305,17 +314,18 @@ begin
   while current <> nil do
   begin
     i := i + 1;
-    current := current^.next;
+    current := current^.Next;
   end;
   if i <= 40 then
-     PrintList(head1, ListBox1);  // Выводим список после завершения его заполнения
+    PrintList(head1, ListBox1);
+  // Выводим список после завершения его заполнения
   AddFile(head1);
   FreeList(head1);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  len_array, x, number: Integer;
+  len_array, x, number: integer;
 begin
   len_array := StrToInt(Edit1.Text);
   for x := 1 to len_array do
@@ -323,24 +333,27 @@ begin
     number := Random(1999) - 1000;
     SortedArray(head1, number);
   end;
-  PrintList(head1, ListBox2);  // Выводим отсортированный список
+  PrintList(head1, ListBox2);
+  // Выводим отсортированный список
   FreeList(head1);
 end;
 
 
 procedure TForm1.Button4Click(Sender: TObject);
 var
-  len_array, x, number: Integer;
+  len_array, x, number: integer;
 begin
   len_array := StrToInt(Edit1.Text);
-  FreeList(head1);  // Освобождаем память для третьего списка перед заполнением нового
+  FreeList(head1);
+  // Освобождаем память для третьего списка перед заполнением нового
   for x := 1 to len_array do
   begin
     number := Random(1999) - 1000;
     Append(head1, number);  // Добавляем числа в список
   end;
   MergeSort(head1);  // Сортируем список слиянием
-  PrintList(head1, ListBox3);  // Выводим отсортированный список в ListBox3
+  PrintList(head1, ListBox3);
+  // Выводим отсортированный список в ListBox3
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -350,7 +363,7 @@ end;
 
 procedure TForm1.Button6Click(Sender: TObject);
 begin
-   FileOpenButtonClick(Sender);
+  FileOpenButtonClick(Sender);
 end;
 
 
