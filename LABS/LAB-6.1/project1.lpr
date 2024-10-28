@@ -1,6 +1,9 @@
 program IndirectSorting;
+{$codepage utf8}
 
-uses SysUtils;
+
+uses
+  SysUtils;
 
 type
   TPerson2_1 = record
@@ -8,6 +11,7 @@ type
     Direction: string[8];
     BirthYear: Integer;
   end;
+
 
   TPerson2_2 = record
     LastName: string[14];
@@ -29,44 +33,54 @@ var
   CombinedPeople: array[1..17] of TCombinedPerson;
   f: TextFile;
   line: string;
-  i, j, CombinedCount: Integer;
+  CombinedCount: Integer;
+
 procedure LoadFile2(const FileName: string);
+var
+  j: Integer;
 begin
   AssignFile(f, FileName);
   Reset(f);
   j := 0;
-  while not Eof(f) do
+  while (not Eof(f)) and (j < Length(People2)) do
   begin
     Inc(j);
     ReadLn(f, line);
-    People2[j].LastName := Copy(line, 1, 14);
-    People2[j].Country := Copy(line, 17, 14);
-    People2[j].PlaceBirth := Copy(line, 32, 12);
+    People2[j].LastName := Trim(Copy(line, 1, 14));
+    People2[j].Country := Trim(Copy(line, 17, 14));
+    People2[j].PlaceBirth := Trim(Copy(line, 32, 12));
   end;
   CloseFile(f);
-  write('SD');
 end;
 
 procedure LoadFile1(const FileName: string);
+var
+  i: Integer;
 begin
   AssignFile(f, FileName);
   Reset(f);
   i := 0;
-  while not Eof(f) do
+  while (not Eof(f)) and (i < Length(People1)) do
   begin
     Inc(i);
     ReadLn(f, line);
-    People1[i].LastName := Copy(line, 1, 14);
-    People1[i].Direction := Copy(line, 17, 8);
-    People1[i].BirthYear := StrToInt(Trim(Copy(line, 26, 4)));
+    People1[i].LastName := Trim(Copy(line, 1, 14));
+    People1[i].Direction := Trim(Copy(line, 17, 8));
+    try
+      People1[i].BirthYear := StrToInt(Trim(Copy(line, 26, 4)));
+    except
+      on E: EConvertError do
+      begin
+        People1[i].BirthYear := 0;  // Ð—Ð°Ð´Ð°ÐµÐ¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
+      end;
+    end;
   end;
   CloseFile(f);
-  Writeln('‡ £àã¦¥­® ', i, ' § ¯¨á¥© ¨§ File4.txt');
 end;
 
-// €­ «®£¨ç­® ¤«ï LoadFile2
-
 procedure CombineTables();
+var
+  i, j: Integer;
 begin
   CombinedCount := 0;
 
@@ -74,7 +88,7 @@ begin
   begin
     for j := 1 to High(People2) do
     begin
-      Writeln('à®¢¥àª : ', Trim(People1[i].LastName), ' ¨ ', Trim(People2[j].LastName));
+      // Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ðµ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼Ñ‹Ðµ Ñ„Ð°Ð¼Ð¸Ð»Ð¸
       if Trim(People1[i].LastName) = Trim(People2[j].LastName) then
       begin
         Inc(CombinedCount);
@@ -83,12 +97,13 @@ begin
         CombinedPeople[CombinedCount].BirthYear := People1[i].BirthYear;
         CombinedPeople[CombinedCount].Country := People2[j].Country;
         CombinedPeople[CombinedCount].PlaceBirth := People2[j].PlaceBirth;
+        Break; // Ð—Ð°Ð²ÐµÑ€ÑˆÐ°ÐµÐ¼ Ð¿Ð¾Ð¸ÑÐº Ð´Ð»Ñ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ Ñ„Ð°Ð¼Ð¸Ð»Ð¸Ð¸
       end;
     end;
   end;
 
-  Writeln('Š®«¨ç¥áâ¢® ®¡ê¥¤¨­¥­­ëå § ¯¨á¥©: ', CombinedCount);
 end;
+
 
 procedure PrintCombinedTable();
 var
@@ -96,29 +111,28 @@ var
 begin
   if CombinedCount = 0 then
   begin
-    Writeln('¥â ®¡ê¥¤¨­¥­­ëå § ¯¨á¥©.');
+    Writeln('ÐÐµÑ‚ Ð¾Ð±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð½Ñ‹Ñ… Ð·Ð°Ð¿Ð¸ÑÐµÐ¹.');
     Exit;
   end;
 
   for x := 1 to CombinedCount do
   begin
-    Writeln('” ¬¨«¨ï: ', CombinedPeople[x].LastName,
-            '  ¯à ¢«¥­¨¥: ', CombinedPeople[x].Direction,
-            ' ƒ®¤ à®¦¤¥­¨ï: ', CombinedPeople[x].BirthYear,
-            ' ‘âà ­ : ', CombinedPeople[x].Country,
-            ' Œ¥áâ® à®¦¤¥­¨ï: ', CombinedPeople[x].PlaceBirth);
+    writeln(CombinedPeople[x].LastName);
+    Writeln('LastName:', CombinedPeople[x].LastName,
+            ' disrecrion: ', CombinedPeople[x].Direction,
+            ' BirthYear: ', CombinedPeople[x].BirthYear,
+            'Country: ', CombinedPeople[x].Country,
+            'Town: ', CombinedPeople[x].PlaceBirth);
   end;
 end;
 
-
 begin
   LoadFile1('File4.txt');
-  LoadFile2('File3.txt');
+  LoadFile2('File1.txt');
 
   CombineTables();
 
   PrintCombinedTable();
 
   Readln();
-end.
-
+end.7
