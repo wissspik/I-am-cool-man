@@ -28,6 +28,7 @@
       <Unit>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="IndirectSorting"/>
       </Unit>
     </Units>
   </ProjectOptions>

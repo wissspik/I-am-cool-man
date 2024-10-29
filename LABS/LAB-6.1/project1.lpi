@@ -28,7 +28,7 @@
       <Unit>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ess"/>
+        <UnitName Value="IndirectSorting"/>
       </Unit>
     </Units>
   </ProjectOptions>

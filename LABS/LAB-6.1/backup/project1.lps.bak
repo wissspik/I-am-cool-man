@@ -8,134 +8,134 @@
       <Unit>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ess"/>
+        <UnitName Value="IndirectSorting"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="86"/>
-        <CursorPos X="6" Y="138"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="284"/>
+        <CursorPos X="14" Y="302"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="31" Column="46" TopLine="27"/>
+        <Caret Line="284" Column="75" TopLine="260"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="29" Column="39" TopLine="17"/>
+        <Caret Line="276" Column="21" TopLine="257"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="2" Column="5"/>
+        <Caret Line="278" Column="23" TopLine="257"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="6" Column="24"/>
+        <Caret Line="284" Column="72" TopLine="260"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="41" Column="4" TopLine="19"/>
+        <Caret Line="286" Column="14" TopLine="265"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="34" Column="34" TopLine="19"/>
+        <Caret Line="277" Column="9" TopLine="263"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="65" Column="62" TopLine="46"/>
+        <Caret Line="283" Column="77" TopLine="267"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="106" Column="3" TopLine="76"/>
+        <Caret Line="212" Column="91" TopLine="199"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="63" TopLine="21"/>
+        <Caret Line="282" Column="73" TopLine="267"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="130" TopLine="88"/>
+        <Caret Line="298" Column="4" TopLine="267"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="44" Column="80" TopLine="16"/>
+        <Caret Line="240" Column="50" TopLine="221"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="114" Column="41" TopLine="93"/>
+        <Caret Line="285" Column="87" TopLine="266"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="121" Column="77" TopLine="109"/>
+        <Caret Line="282" Column="65" TopLine="266"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="117" Column="5" TopLine="93"/>
+        <Caret Line="298" Column="42" TopLine="273"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="19" Column="60" TopLine="16"/>
+        <Caret Line="297" Column="30" TopLine="273"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="134" TopLine="100"/>
+        <Caret Line="288" Column="85" TopLine="275"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="113" Column="35" TopLine="111"/>
+        <Caret Line="274" Column="52" TopLine="249"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="4" Column="11"/>
+        <Caret Line="289" Column="95" TopLine="255"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="119" Column="72"/>
+        <Caret Line="242" Column="111" TopLine="229"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="135" Column="6" TopLine="104"/>
+        <Caret Line="198" Column="20" TopLine="187"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="4" Column="11"/>
+        <Caret Line="299" Column="3" TopLine="275"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="126" TopLine="104"/>
+        <Caret Line="297" Column="14" TopLine="275"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="127" TopLine="104"/>
+        <Caret Line="303" Column="13" TopLine="281"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="102" Column="204" TopLine="84"/>
+        <Caret Line="201" Column="31" TopLine="198"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="120" Column="41" TopLine="85"/>
+        <Caret Line="303" Column="69" TopLine="281"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="103" Column="83" TopLine="87"/>
+        <Caret Line="301" Column="30" TopLine="281"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="132" Column="79" TopLine="86"/>
+        <Caret Line="297" Column="50" TopLine="281"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="117" Column="120" TopLine="86"/>
+        <Caret Line="299" Column="30" TopLine="284"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Line="5" Column="5"/>
+        <Caret Line="297" Column="11" TopLine="277"/>
       </Position>
       <Position>
         <Filename Value="project1.lpr"/>
-        <Caret Column="14"/>
+        <Caret Line="290" Column="43" TopLine="276"/>
       </Position>
     </JumpHistory>
     <RunParams>
