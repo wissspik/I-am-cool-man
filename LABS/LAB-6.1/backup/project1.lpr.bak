@@ -41,12 +41,10 @@ var
   CityCounts: array of TCityRecord;
   array_1: array of string;
   array_2: array of string;
-  array_3: array of integer;
   CombinedPeople: array[1..99] of TCombinedPerson; // Увеличиваем размер массива  f: TextFile;
-  line: string;
-  i, j,t,CombinedCount,x: Integer;
-  found,isUnique: Boolean;
-  F:TextFile;
+  line,city: string;
+  i, j,t,CombinedCount,x,W: Integer;
+  F,JOY,MatchFile:TextFile;
   index: Integer;
 procedure LoadFile2_1(const FileName: string);
 var  i,x: Integer;
@@ -200,115 +198,69 @@ end;
 
 
 begin
-  SetLength(array_2, 0); // Инициализация
-  SetLength(array_3, 0); // Инициализация массива
-  AssignFile(F,'STOK.txt');
-  Rewrite(F);
+  AssignFile(MatchFile, 'Matches.txt');
+  Rewrite(MatchFile);
+  SetLength(array_1, 0);
+  SetLength(array_2, 0);// Инициализация
+  AssignFile(F,'RUSLANTIGER.txt');
+  AssignFile(JOY,'ARTURTIGER.txt');
+  ReWrite(F);
+  ReWrite(JOY);
   LoadFile2_1('File4.txt');
   LoadFile2_2('File1.txt');
   LoadFile1_1('File3.txt');
   LoadFile1_2('File2.txt');
   CombineTables();
   SaveCombinedToFile('CombinedOutput.txt');
-  for x := 0 to Length(CombinedPeople) - 1 do
-  begin
-    t := 0; // Инициализация t для каждого нового x
-    for i := 0 to Length(CombinedPeople) - 1 do
+  t := 0;
+// Косвенная сортировка по году рождения
+for i := 0 to Length(CombinedPeople) - 2 do
+  for x := 0 to Length(CombinedPeople) - 2 - i do // Избегаем выхода за границы массива
+    if CombinedPeople[x].BirthYear > CombinedPeople[x + 1].BirthYear then
     begin
-      if CombinedPeople[x].PlaceBirth = CombinedPeople[i].PlaceBirth then
-      begin
-        t := t + 1;
-      end;
+      // Обмен значениями для сортировки
+      W := CombinedPeople[x].BirthYear;
+      CombinedPeople[x].BirthYear := CombinedPeople[x + 1].BirthYear;
+      CombinedPeople[x + 1].BirthYear := W;
     end;
-
-    // Проверяем, что текущий город встречается только один раз и принадлежит России
-    if (t = 1) and (CombinedPeople[x].Country = 'Россия') then
-    begin
-      SetLength(array_2, Length(array_2) + 1);
-      array_2[High(array_2)] := CombinedPeople[x].PlaceBirth; // Сохраняем уникальный город в array_2
-      SetLength(array_3, Length(array_3) + 1);
-      array_3[High(array_3)] := CombinedPeople[x].BirthYear; // Сохраняем год рождения в array_3
-    end;
-  end;
-
-  // Вывод уникальных городов и соответствующих годов рождения
-  for i := 0 to Length(array_2) - 1 do
-  begin
-    WriteLn(F,'Город: ', array_2[i], ' | Год рождения: ', array_3[i]);
-  end;
-
+for i:= 0 to length(CombinedPeople) do
+      writeln(F,     CombinedPeople[i].LastName,
+       CombinedPeople[i].Direction,       CombinedPeople[i].BirthYear,
+       CombinedPeople[i].Country,          CombinedPeople[i].PlaceBirth);
+// Заполнение массива array_1 городами из направления '02.03.02'
+for x := 0 to Length(CombinedPeople) - 1 do
 begin
-  // Проход для '02.03.02'
-  for i := 1 to Length(CombinedPeople) do
+  if (CombinedPeople[x].Country = 'Россия') and (CombinedPeople[x].Direction = '02.03.02') then
   begin
-    if (CombinedPeople[i].Country = 'Россия') and (CombinedPeople[i].Direction = '02.03.02') then
-    begin
-      found := False;
-
-      // Проверяем, содержится ли PlaceBirth в array_1
-      for j := 0 to High(array_1) do
-      begin
-        if array_1[j] = CombinedPeople[i].PlaceBirth then
-        begin
-          found := True;
-          Break; // Завершаем поиск, если нашли совпадение
-        end;
-      end;
-
-      // Если не найдено, добавляем в array_1
-      if not found then
-      begin
-        SetLength(array_1, Length(array_1) + 1);
-        array_1[High(array_1)] := CombinedPeople[i].PlaceBirth;
-      end;
-    end;
+    SetLength(array_1, Length(array_1) + 1);
+    array_1[Length(array_1) - 1] := CombinedPeople[x].PlaceBirth;
   end;
 end;
+for i := 0 to length(array_1) - 1 do
+   writeln(F,array_1[i]);// Поиск городов из направления '09.03.03', которые есть и в array_1
 
 
-
-
+for x := 0 to Length(CombinedPeople) - 1 do
 begin
-  for i := 1 to Length(CombinedPeople) do
+  if (CombinedPeople[x].Country = 'Россия') and (CombinedPeople[x].Direction = '09.03.03') then
   begin
-    if (CombinedPeople[i].Country = 'Россия') and (CombinedPeople[i].Direction = '09.03.03') then   // 1
-    begin
-      found := False;
-
-      // Проверяем, содержится ли PlaceBirth в array_1
-      for j := 0 to High(array_1) do
-      begin
-        if array_1[j] = CombinedPeople[i].PlaceBirth then
-        begin
-          found := True;
-          Break; // Завершаем поиск, если нашли совпадение
-        end;
-      end;
-
-      // Если не найдено, добавляем в array_1
-      if not found then
-      begin
-        SetLength(array_1, Length(array_1) + 1);
-        array_1[High(array_1)] := CombinedPeople[i].PlaceBirth;
-      end;
-    end;
+    writeln(JOY,CombinedPeople[x].PlaceBirth);
+    SetLength(array_2, Length(array_2) + 1);
+    array_2[Length(array_2) - 1] := CombinedPeople[x].PlaceBirth;
   end;
 end;
+for i := 0 to Length(array_1) - 1 do
+    for j := 0 to Length(array_2) - 1 do
+      if array_1[i] = array_2[j] then
+      begin
+        writeln(MatchFile, array_1[i]); // Запись совпадения в файл
+        Break; // Если совпадение найдено, выходим из внутреннего цикла
+      end;
 
-
-  // Вывод уникальных значений
-  for i := 0 to Length(array_1) - 1 do
-  begin
-    WriteLn(F,array_1[i]);
-  end;
-
-for i := 0 to Length(CombinedPeople) - 1 do   // 2 задание
-  if CombinedPeople[i].Country <> 'Россия' then
-    writeln(F,CombinedPeople[i].LastName,'  ',CombinedPeople[i].Direction,'  ',CombinedPeople[i].BirthYear,'  ',CombinedPeople[i].PlaceBirth);
-Readln();
-
-
-
-
-
+  CloseFile(F);
+  CloseFile(JOY);
+  writeln(t);
+  Readln();
+  CloseFile(MatchFile);
+end.
 

@@ -1,0 +1,120 @@
+object Form1: TForm1
+  Left = 761
+  Height = 486
+  Top = 121
+  Width = 549
+  Caption = 'Form1'
+  ClientHeight = 486
+  ClientWidth = 549
+  LCLVersion = '3.4.0.0'
+  object Button1: TButton
+    Left = 19
+    Height = 32
+    Top = 88
+    Width = 101
+    Caption = 'Линейный'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 160
+    Height = 32
+    Top = 88
+    Width = 104
+    Caption = 'Упорядоченный'
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 298
+    Height = 30
+    Top = 88
+    Width = 112
+    Caption = 'Слияние'
+    TabOrder = 2
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 424
+    Height = 32
+    Top = 8
+    Width = 96
+    Caption = 'Выход'
+    TabOrder = 3
+    OnClick = Button4Click
+  end
+  object Edit1: TEdit
+    Left = 24
+    Height = 23
+    Top = 40
+    Width = 96
+    TabOrder = 4
+  end
+  object ListBox1: TListBox
+    Left = 19
+    Height = 237
+    Top = 134
+    Width = 101
+    ItemHeight = 0
+    TabOrder = 5
+  end
+  object ListBox2: TListBox
+    Left = 160
+    Height = 237
+    Top = 134
+    Width = 104
+    ItemHeight = 0
+    TabOrder = 6
+  end
+  object ListBox3: TListBox
+    Left = 296
+    Height = 232
+    Top = 136
+    Width = 114
+    ItemHeight = 0
+    TabOrder = 7
+  end
+  object Memo1: TMemo
+    Left = 10
+    Height = 83
+    Top = 385
+    Width = 520
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 8
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 16
+    Width = 146
+    Caption = 'Введите количество чисел'
+  end
+  object Button5: TButton
+    Left = 160
+    Height = 33
+    Top = 32
+    Width = 104
+    Caption = 'Cохранить файл'
+    TabOrder = 9
+    OnClick = Button5Click
+  end
+  object Button6: TButton
+    Left = 296
+    Height = 30
+    Top = 35
+    Width = 114
+    Caption = 'Открыть файл'
+    TabOrder = 10
+    OnClick = FileOpenButtonClick
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 496
+    Top = 96
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 456
+    Top = 96
+  end
+end
